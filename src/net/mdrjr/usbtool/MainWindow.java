@@ -24,7 +24,7 @@ public class MainWindow {
 
 	private JFrame frame;
 	private FileOps fops;
-	private static String currentFolder = "/home/mdrjr";
+	private static String currentFolder = "/";
 	private JLabel lblSelectedFile;
 	private JList<String> list_1;
 	private String selected;
