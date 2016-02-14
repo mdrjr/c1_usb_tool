@@ -1,2 +1,5 @@
 # c1_usb_tool
-No idea.
+
+On your odroid..
+
+make install
