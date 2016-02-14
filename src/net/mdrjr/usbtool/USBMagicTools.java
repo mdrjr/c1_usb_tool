@@ -29,21 +29,8 @@ public class USBMagicTools {
 	} 
 	
 	
-	public boolean checkIfModuleIsLoaded() {
-		boolean ret = false;
-		
-		String cmd = execCmd("lsmod | grep g_mass_storage");
-		
-		if(cmd.length() >= 3)
-			ret = true;
-		
-		return ret;
-	}
-
 	public void unloadModule() {
-		if(checkIfModuleIsLoaded()) {
 			execCmd("rmmod g_mass_storage");
-		}
 	}
 
 	public void loadModule(String file) {
