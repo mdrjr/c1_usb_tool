@@ -180,7 +180,7 @@ public class MainWindow {
 		frmUsbTool.getContentPane().setLayout(null);
 		frmUsbTool.setResizable(false);
 		initialize_panel_msg();
-		//frmUsbTool.getContentPane().add(pMsg);
+		frmUsbTool.getContentPane().add(pMsg);
 		
 		panelMain = new JPanel();
 		panelMain.setBounds(0, 0, 320, 230);
