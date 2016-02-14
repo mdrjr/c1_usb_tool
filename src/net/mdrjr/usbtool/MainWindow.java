@@ -19,10 +19,11 @@ import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.Font;
 
 public class MainWindow {
 
-	private JFrame frame;
+	private JFrame frmUsbTool;
 	private FileOps fops;
 	private static String currentFolder = "/";
 	private JLabel lblSelectedFile;
@@ -44,7 +45,7 @@ public class MainWindow {
 			public void run() {
 				try {
 					MainWindow window = new MainWindow();
-					window.frame.setVisible(true);
+					window.frmUsbTool.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -129,6 +130,7 @@ public class MainWindow {
 		
 		
 		txtArea = new JTextArea();
+		txtArea.setFont(new Font("Ubuntu", Font.PLAIN, 12));
 		txtArea.setLineWrap(true);
 		txtArea.setWrapStyleWord(true);
 		
@@ -136,6 +138,7 @@ public class MainWindow {
 		pMsg.add(txtArea);
 		
 		JButton btnOK = new JButton("OK");
+		btnOK.setFont(new Font("Ubuntu", Font.BOLD, 12));
 		btnOK.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -149,6 +152,7 @@ public class MainWindow {
 		pMsg.add(btnOK);
 		
 		JButton btnNewButton = new JButton("Cancel");
+		btnNewButton.setFont(new Font("Ubuntu", Font.BOLD, 12));
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -169,22 +173,23 @@ public class MainWindow {
 		fops = new FileOps();
 		List<String> files = fops.getFolderContets(currentFolder);
 		
-		frame = new JFrame();
-		frame.setBounds(0, 0, 320, 240);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setUndecorated(true);
-		frame.setResizable(false);
+		frmUsbTool = new JFrame();
+		frmUsbTool.setTitle("USB Tool");
+		frmUsbTool.setBounds(10, 10, 320, 286);
+		frmUsbTool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmUsbTool.getContentPane().setLayout(null);
+		frmUsbTool.setResizable(false);
 		initialize_panel_msg();
-		frame.getContentPane().add(pMsg);
+		//frmUsbTool.getContentPane().add(pMsg);
 		
 		panelMain = new JPanel();
-		panelMain.setBounds(0, 0, 320, 240);
-		frame.getContentPane().add(panelMain);
+		panelMain.setBounds(0, 0, 320, 230);
+		frmUsbTool.getContentPane().add(panelMain);
 		panelMain.setLayout(null);
 		
 		lblSelectedFile = new JLabel("");
-		lblSelectedFile.setBounds(120, 31, 188, 15);
+		lblSelectedFile.setFont(new Font("Ubuntu", Font.PLAIN, 12));
+		lblSelectedFile.setBounds(95, 31, 188, 15);
 		panelMain.add(lblSelectedFile);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -192,6 +197,15 @@ public class MainWindow {
 		panelMain.add(scrollPane);
 		
 		list_1 = new JList<String>();
+		list_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() >= 2) {
+					handleList(10);
+				}
+			}
+		});
+		list_1.setFont(new Font("Ubuntu", Font.PLAIN, 12));
 		scrollPane.setViewportView(list_1);
 		list_1.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -223,17 +237,30 @@ public class MainWindow {
 		
 		
 		JLabel lblCurrentFolder = new JLabel("Current Folder:");
-		lblCurrentFolder.setBounds(12, 12, 119, 15);
+		lblCurrentFolder.setFont(new Font("Ubuntu", Font.PLAIN, 12));
+		lblCurrentFolder.setBounds(12, 12, 96, 15);
 		panelMain.add(lblCurrentFolder);
 		
 		lblFolderName = new JLabel("New label");
-		lblFolderName.setBounds(133, 12, 175, 15);
+		lblFolderName.setFont(new Font("Dialog", Font.PLAIN, 12));
+		lblFolderName.setBounds(108, 12, 175, 15);
 		lblFolderName.setText(currentFolder);
 		panelMain.add(lblFolderName);
 		
 		JLabel lblNewLabel = new JLabel("Selected File:");
-		lblNewLabel.setBounds(12, 31, 96, 15);
+		lblNewLabel.setFont(new Font("Ubuntu", Font.PLAIN, 12));
+		lblNewLabel.setBounds(12, 31, 86, 15);
 		panelMain.add(lblNewLabel);
+		
+		JButton btnSelect = new JButton("Select");
+		btnSelect.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				handleList(10);
+			}
+		});
+		btnSelect.setBounds(93, 231, 117, 25);
+		frmUsbTool.getContentPane().add(btnSelect);
 		
 		list_1.requestFocus();
 	}
